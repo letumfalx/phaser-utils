@@ -1,0 +1,19 @@
+{
+  "name": "@repo/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./base.json",
+  "exports": {
+    ".": "./base.json",
+    "./base.json": "./base.json",
+    "./browser.json": "./browser.json"
+  },
+  "files": [
+    "base.json",
+    "browser.json"
+  ],
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
+}

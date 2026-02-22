@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "tasks": {
+    "build": {
+      "cache": true,
+      "description": "Run all build tasks on all buildable packages."
+    },
+    "lint:check": {
+      "cache": true,
+      "description": "Runs linting tasks on all packages."
+    },
+    "lint:fix": {
+      "cache": true,
+      "description": "Runs linting tasks on all packages, fix anything fixable."
+    },
+    "type:check": {
+      "cache": true,
+      "description": "Runs type checking on all packages."
+    }
+  }
+}
