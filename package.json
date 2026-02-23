@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "changesets": "bunx @changesets/cli",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
     "lint:check": "turbo run lint:check",
@@ -26,6 +27,7 @@
     "type:check": "turbo run type:check"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "husky": "^9.1.7",
     "prettier": "^3.8.1",
     "prettier-plugin-jsdoc": "^1.8.0",
