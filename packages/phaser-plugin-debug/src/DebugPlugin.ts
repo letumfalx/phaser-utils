@@ -31,7 +31,6 @@ export class DebugPlugin extends Phaser.Plugins.BasePlugin {
     super.destroy();
 
     if (this.debugInstance) {
-      this.debugInstance.destroy();
       delete this.debugInstance;
     }
   }

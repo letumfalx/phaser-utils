@@ -5,6 +5,11 @@
       "cache": true,
       "description": "Run all build tasks on all buildable packages."
     },
+    "dev": {
+      "cache": false,
+      "description": "Run all dev scripts on each packages.",
+      "persistent": true
+    },
     "lint:check": {
       "cache": true,
       "description": "Runs linting tasks on all packages."

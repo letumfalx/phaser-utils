@@ -1,2 +1,2 @@
 export { DebugPlugin } from "./DebugPlugin";
-export { SceneDebugPlugin } from "./SceneDebugPlugin";
+export { DebugScenePlugin, SceneDebugPlugin } from "./DebugScenePlugin";

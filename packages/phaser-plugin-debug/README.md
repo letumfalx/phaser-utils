@@ -6,13 +6,13 @@ A [Phaser](https://phaser.io/) plugin that integrates the [debug](https://www.np
 
 ```sh
 # npm
-npm install phaser @letumfalx/phaser-plugin-debug
+npm install phaser debug @letumfalx/phaser-plugin-debug
 
 # yarn
-yarn add phaser @letumfalx/phaser-plugin-debug
+yarn add phaser debug @letumfalx/phaser-plugin-debug
 
 # bun
-bun add phaser @letumfalx/phaser-plugin-debug
+bun add phaser debug @letumfalx/phaser-plugin-debug
 ```
 
 ## Usage
