@@ -1,6 +1,10 @@
 import "phaser";
 
 import { DebugPlugin, DebugScenePlugin } from "@letumfalx/phaser-plugin-debug";
+import {
+  SocketIOEventScenePlugin,
+  SocketIOPlugin,
+} from "@letumfalx/phaser-plugin-socketio";
 import { SCENE_LIST } from "./scenes";
 
 new Phaser.Game({
@@ -16,12 +20,25 @@ new Phaser.Game({
         mapping: "globalDebug",
         plugin: DebugPlugin,
       },
+      {
+        data: {
+          autoConnect: false,
+        },
+        key: "SocketIOPlugin",
+        mapping: "globalSocket",
+        plugin: SocketIOPlugin,
+      },
     ],
     scene: [
       {
         key: "DebugScenePlugin",
         mapping: "debug",
         plugin: DebugScenePlugin,
+      },
+      {
+        key: "SocketIOEventScenePlugin",
+        mapping: "socket",
+        plugin: SocketIOEventScenePlugin,
       },
     ],
   },
