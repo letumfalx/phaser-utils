@@ -1,6 +1,6 @@
 {
   "name": "@letumfalx/phaser-plugin-debug",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A phaser plugin that adds a debug function to your game instance.",
   "license": "MIT",
   "repository": {
