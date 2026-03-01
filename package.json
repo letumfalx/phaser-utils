@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "turbo run --filter=@repo/manual-test dev",
     "changesets": "bunx @changesets/cli",
     "format:check": "prettier --check .",
     "format:fix": "prettier --write .",
