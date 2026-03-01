@@ -1,6 +1,6 @@
 {
   "name": "@letumfalx/phaser-plugin-debug",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A phaser plugin that adds a debug function to your game instance.",
   "license": "MIT",
   "repository": {
@@ -30,18 +30,16 @@
   },
   "scripts": {
     "build": "npm-run-all --parallel build:*",
-    "build:cjs": "bun build --format=cjs --outdir=dist/cjs --outfile=index.js --external=phaser --packages=external --target=browser src/index.ts",
-    "build:esm": "bun build --format=esm --outdir=dist/esm --outfile=index.js --external=phaser --packages=external --target=browser src/index.ts",
+    "build:cjs": "bun build --format=cjs --outdir=dist/cjs --outfile=index.js --external=debug,phaser --packages=external --target=browser src/index.ts",
+    "build:esm": "bun build --format=esm --outdir=dist/esm --outfile=index.js --external=debug,phaser --packages=external --target=browser src/index.ts",
     "build:types": "tsc --project tsconfig.build.json",
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix .",
     "type:check": "tsc --noEmit"
   },
   "peerDependencies": {
+    "debug": "*",
     "phaser": "^3.8.0"
-  },
-  "dependencies": {
-    "debug": "*"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
