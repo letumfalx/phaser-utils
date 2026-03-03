@@ -9,8 +9,12 @@
   },
   "dependencies": {
     "@letumfalx/phaser-plugin-debug": "workspace:*",
+    "@letumfalx/phaser-plugin-socketio": "workspace:*",
+    "@socket.io/bun-engine": "^0.1.0",
     "debug": "^4.4.3",
-    "phaser": "^3.90.0"
+    "phaser": "^3.90.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
