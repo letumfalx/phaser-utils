@@ -8,6 +8,11 @@ import type {
 
 type SocketIOOptions = Exclude<Parameters<typeof io>[1], undefined>;
 
+/**
+ * A Phaser plugin that manages a [Socket.IO](https://socket.io/) client
+ * connection, providing a typed interface for emitting and listening to both
+ * built-in and custom socket events.
+ */
 export class SocketIOPlugin<
   TListenEvents extends EventMap = EventMap,
   TEmitEvents extends EventMap = EventMap,
@@ -29,7 +34,12 @@ export class SocketIOPlugin<
     return this._bridge;
   }
 
-  /** The socket instance. */
+  /**
+   * The reference to the `socket.io-client`'s `Socket` instance managed by this
+   * plugin.
+   *
+   * @throws When this plugin is not yet initialized
+   */
   get instance() {
     if (!this._instance) {
       throw new Error("SocketIOPlugin not initialized");
@@ -38,12 +48,41 @@ export class SocketIOPlugin<
     return this._instance;
   }
 
-  /** The current status of the socket. */
+  /**
+   * The current status of the socket connection.
+   *
+   * - `disconnected`: Not connected to the server.
+   * - `connecting`: Connecting to the server, or waiting for connection to be
+   *   established.
+   * - `connected`: Connected to the server and ready to listen/emit events.
+   *
+   * @throws When the plugin is not yet initialized
+   */
   get status() {
     return this.bridge.status;
   }
 
-  /** @inheritdoc */
+  /**
+   * @inheritdoc
+   * @internal
+   */
+  override init(
+    data?:
+      | undefined
+      | null
+      | (SocketIOOptions & { namespace?: undefined | string })
+      | Socket
+  ): void {
+    super.init(data);
+
+    const socket = (this._instance = createSocket(data));
+    (this._bridge = new EventBridge(socket)).init();
+  }
+
+  /**
+   * @inheritdoc
+   * @internal
+   */
   override destroy(): void {
     if (this._bridge) {
       this._bridge.destroy();
@@ -63,13 +102,19 @@ export class SocketIOPlugin<
     super.destroy();
   }
 
-  /** Connects the socket to the server. */
+  /**
+   * Connects the socket to the server by calling the internal `Socket`'s
+   * `connect` method.
+   */
   connect(): this {
     this.instance.connect();
     return this;
   }
 
-  /** Disconnects the socket to the server. */
+  /**
+   * Disconnects the socket from the server by calling the internal `Socket`'s
+   * `disconnect` method.
+   */
   disconnect(): this {
     this.instance.disconnect();
 
@@ -77,10 +122,10 @@ export class SocketIOPlugin<
   }
 
   /**
-   * Emit the event to the socket.
+   * Emits a custom event to the socket.
    *
    * @param eventName The name of the event to emit
-   * @param args The data to emit with
+   * @param args The data to emit with the event
    */
   emit<TEventKey extends keyof TEmitEvents & string>(
     eventName: TEventKey,
@@ -90,22 +135,17 @@ export class SocketIOPlugin<
     return this;
   }
 
-  /** @inheritdoc */
-  override init(
-    data?:
-      | undefined
-      | null
-      | (SocketIOOptions & { namespace?: undefined | string })
-      | Socket
-  ): void {
-    super.init(data);
-
-    const socket = (this._instance = createSocket(data));
-    (this._bridge = new EventBridge(socket)).init();
-  }
-
   /**
-   * Listen to an event.
+   * Registers a handler for a built-in socket event. Built-in events are
+   * prefixed with `socket:` (see [Manager
+   * Events](https://socket.io/docs/v4/client-api/#events) and [Socket
+   * Events](https://socket.io/docs/v4/client-api/#events-1)).
+   *
+   * Plugin custom Socket events:
+   *
+   * | Status                    | Signature                                                                                                                 |
+   * | :------------------------ | :------------------------------------------------------------------------------------------------------------------------ |
+   * | **socket:status_changed** | `(newStatus: "disconnected"\|"connecting"\|"connected", prevStatus: "disconnected"\| "connecting"\| "connected") => void` |
    *
    * @param event The event to register on
    * @param handler The handler to register
@@ -115,7 +155,9 @@ export class SocketIOPlugin<
     handler: MappedSocketEvents[TEventKey]
   ): this;
   /**
-   * Listen to an event.
+   * Registers a handler for a custom socket event. Use the event name directly
+   * (no prefix required). The handler will be called whenever the event is
+   * received.
    *
    * @param event The event to register on
    * @param handler The handler to register
@@ -124,12 +166,6 @@ export class SocketIOPlugin<
     event: TEventKey,
     handler: TListenEvents[TEventKey]
   ): this;
-  /**
-   * Listen to an event.
-   *
-   * @param event The event to register on
-   * @param handler The handler to register
-   */
   on(event: string, handler: GenericEventHandler): this {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this.bridge.on(event as any, handler);
@@ -137,10 +173,25 @@ export class SocketIOPlugin<
     return this;
   }
 
+  /**
+   * Registers a one-time handler for a built-in socket event (prefixed with
+   * `socket:`). The handler is automatically removed after it is triggered
+   * once.
+   *
+   * @param event The event to register on
+   * @param handler The handler to register
+   */
   once<TEventKey extends keyof MappedSocketEvents>(
     event: TEventKey,
     handler: MappedSocketEvents[TEventKey]
   ): this;
+  /**
+   * Registers a one-time handler for a custom socket event. The handler is
+   * automatically removed after it is triggered once.
+   *
+   * @param event The event to register on
+   * @param handler The handler to register
+   */
   once<TEventKey extends keyof TListenEvents>(
     event: TEventKey,
     handler: TListenEvents[TEventKey]
@@ -153,7 +204,9 @@ export class SocketIOPlugin<
   }
 
   /**
-   * Removes the listener/s from an event.
+   * Removes a handler for a built-in socket event. If only the event name is
+   * provided, all handlers for that event are removed. Works for handlers
+   * registered with both `on` and `once`.
    *
    * @param event The event to where to remove listener from
    * @param handler The handler to remove, removes all handler of the event if
@@ -164,7 +217,9 @@ export class SocketIOPlugin<
     handler?: undefined | MappedSocketEvents[TEventKey]
   ): this;
   /**
-   * Removes the listener/s from an event.
+   * Removes a handler for a custom socket event. If only the event name is
+   * provided, all handlers for that event are removed. Works for handlers
+   * registered with both `on` and `once`.
    *
    * @param event The event to where to remove listener from
    * @param handler The handler to remove, removes all handler of the event if
@@ -174,7 +229,10 @@ export class SocketIOPlugin<
     event: TEventKey,
     handler?: undefined | TListenEvents[TEventKey]
   ): this;
-  /** Removes all the listeners. */
+  /**
+   * Removes all event handlers for all events, both built-in and custom,
+   * regardless of how they were registered.
+   */
   off(): this;
   off(
     event?: undefined | string,
