@@ -1,6 +1,6 @@
 {
   "name": "@letumfalx/phaser-plugin-socketio",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A phaser plugin that manages SocketIO connection of your game instance.",
   "license": "MIT",
   "repository": {
