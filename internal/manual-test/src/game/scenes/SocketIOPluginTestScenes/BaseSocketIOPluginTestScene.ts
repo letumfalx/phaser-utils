@@ -140,8 +140,6 @@ export abstract class BaseSocketIOPluginTestScene extends BaseTextButtonOptionSc
   override create(): void {
     super.create();
 
-    console.log(this.socket.status);
-
     this.socket.on("socket:status_changed", (newStatus) => {
       this.debug.log(`Status Changed: ${newStatus}`);
     });

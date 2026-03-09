@@ -83,10 +83,10 @@ export class SocketIOEventScenePlugin<
     }
     this._global = plugin;
 
-    this._bridge = new EventBridge(plugin.instance);
+    this._bridge = new EventBridge();
 
     this.systems!.events.on(Phaser.Scenes.Events.START, () => {
-      this._bridge?.init();
+      this._bridge?.init(this.global.instance, { status: this.global.status });
     });
 
     this.systems!.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {

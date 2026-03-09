@@ -1,10 +1,10 @@
+import { withSocketIO } from "@letumfalx/bun-serve-socketio";
 import HOME_PAGE from "./index.html";
 import { logFn } from "./server/logger";
-import { withSocketIOServer } from "./server/withSocketIOServer";
 import type { CustomClientEmitEvents, CustomServerEmitEvents } from "./types";
 
 const server = Bun.serve(
-  withSocketIOServer<CustomClientEmitEvents, CustomServerEmitEvents>({
+  withSocketIO<CustomClientEmitEvents, CustomServerEmitEvents>({
     register(socket) {
       logFn(`Connected: ${socket.id}`);
 
@@ -18,6 +18,7 @@ const server = Bun.serve(
       });
     },
   })({
+    fetch: () => new Response(null, { status: 404 }),
     routes: {
       "/": HOME_PAGE,
     },
