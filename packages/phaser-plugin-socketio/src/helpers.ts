@@ -1,4 +1,5 @@
 import type {
+  SocketEvents,
   SocketIOManagerReservedEvents,
   SocketIOPluginEvents,
   SocketIOReservedEvents,
@@ -22,3 +23,17 @@ export const SOCKET_IO_RESERVED_EVENT_NAMES: (keyof SocketIOReservedEvents)[] =
 
 export const SOCKET_PLUGIN_RESERVED_EVENT_NAMES: (keyof SocketIOPluginEvents)[] =
   ["status_changed"];
+
+/**
+ * @deprecated Not being used internally anymore, will remove on next major
+ *   release
+ */
+export const SOCKET_STATUS_CHECK_EVENT_NAMES: (keyof SocketEvents)[] = [
+  "reconnect",
+  "reconnect_attempt",
+  "reconnect_error",
+  "reconnect_failed",
+  "connect",
+  "disconnect",
+  "connect_error",
+];
