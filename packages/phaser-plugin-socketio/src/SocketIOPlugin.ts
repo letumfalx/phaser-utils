@@ -76,7 +76,7 @@ export class SocketIOPlugin<
     super.init(data);
 
     const socket = (this._instance = createSocket(data));
-    (this._bridge = new EventBridge(socket)).init();
+    (this._bridge = new EventBridge()).init(socket);
   }
 
   /**
