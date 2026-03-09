@@ -8,6 +8,7 @@
     "type:check": "tsc --noEmit"
   },
   "dependencies": {
+    "@letumfalx/bun-serve-socketio": "^0.0.1",
     "@letumfalx/phaser-plugin-debug": "workspace:*",
     "@letumfalx/phaser-plugin-socketio": "workspace:*",
     "@socket.io/bun-engine": "^0.1.0",

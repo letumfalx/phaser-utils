@@ -15,7 +15,10 @@ new Phaser.Game({
       {
         data: {
           namespace: "game",
-        },
+        } satisfies Extract<
+          Parameters<DebugPlugin["init"]>[0],
+          Record<never, never>
+        >,
         key: "DebugPlugin",
         mapping: "globalDebug",
         plugin: DebugPlugin,
@@ -23,7 +26,13 @@ new Phaser.Game({
       {
         data: {
           autoConnect: false,
-        },
+          reconnection: true,
+          reconnectionAttempts: 3,
+          reconnectionDelay: 5_000,
+        } satisfies Extract<
+          Parameters<SocketIOPlugin["init"]>[0],
+          { namespace?: undefined | string }
+        >,
         key: "SocketIOPlugin",
         mapping: "globalSocket",
         plugin: SocketIOPlugin,

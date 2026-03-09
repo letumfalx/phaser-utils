@@ -29,6 +29,7 @@
     "internal/manual-test": {
       "name": "@repo/manual-test",
       "dependencies": {
+        "@letumfalx/bun-serve-socketio": "^0.0.1",
         "@letumfalx/phaser-plugin-debug": "workspace:*",
         "@letumfalx/phaser-plugin-socketio": "workspace:*",
         "@socket.io/bun-engine": "^0.1.0",
@@ -73,7 +74,7 @@
     },
     "packages/phaser-plugin-socketio": {
       "name": "@letumfalx/phaser-plugin-socketio",
-      "version": "0.0.0",
+      "version": "0.0.1",
       "devDependencies": {
         "@repo/eslint-config": "workspace:*",
         "@repo/tsconfig": "workspace:*",
@@ -152,6 +153,8 @@
     "@humanwhocodes/retry": ["@humanwhocodes/retry@0.4.3", "", {}, "sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ=="],
 
     "@inquirer/external-editor": ["@inquirer/external-editor@1.0.3", "", { "dependencies": { "chardet": "^2.1.1", "iconv-lite": "^0.7.0" }, "peerDependencies": { "@types/node": ">=18" }, "optionalPeers": ["@types/node"] }, "sha512-RWbSrDiYmO4LbejWY7ttpxczuwQyZLBUyygsA9Nsv95hpzUWwnNTVQmAq3xuh7vNwCp07UTmE5i11XAEExx4RA=="],
+
+    "@letumfalx/bun-serve-socketio": ["@letumfalx/bun-serve-socketio@0.0.1", "", { "peerDependencies": { "@socket.io/bun-engine": "^0.1.0", "socket.io": "^4.8.0" } }, "sha512-51EXsH6pSEYRh/m9D1HG7yE+P2WQvgilgM9qqUvkCdvxRR1ihs0BcVSM6CQ1hcrJwrpcL3Pd5l0Hrs7uWzn4kw=="],
 
     "@letumfalx/phaser-plugin-debug": ["@letumfalx/phaser-plugin-debug@workspace:packages/phaser-plugin-debug"],
 
