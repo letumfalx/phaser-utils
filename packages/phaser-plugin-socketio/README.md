@@ -108,6 +108,7 @@ new Phaser.Game({
         key: "SocketIOPlugin",
         plugin: SocketIOPlugin,
         mapping: "globalSocket", // Avoid name collision
+        start: true, // add this so the scene plugin can find it if you don't map the global plugin to a key
       },
     ],
     scene: [
